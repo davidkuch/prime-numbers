@@ -1,3 +1,13 @@
+# this program finds prime numbers.
+# the algorithm is based on the "simple" idea of checking
+# the intresting thing is the use of a linked list,
+# where the prime numbers are stored-
+# and we only need to check for each new suspected-prime
+# if it is devided by primes up to its square root.
+# the linked list keeps track of the current "base"-
+# the square root that is the limit of current check-up. 
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
