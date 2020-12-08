@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node{
+                    int data;
+                    struct node* next;} node;
+
+int next_base(node * baseptr);
+int up_limit(node * baseptr);
+int scan(node * head,int key, int base);
+node * add(node * last,int key);
+void print(node * head);
+void end(node * head);
+
+main()
+{
+ int top,key,base,lim;
+ node *head,*last,*baseptr;
+
+ top=100;
+ key=4;
+ base=3;
+ lim=24;
+ head=(node*)malloc(sizeof(node));
+ last=(node*)malloc(sizeof(node));
+ head->data=2;
+ last->data=3;
+ 
+ last->next=NULL;
+ baseptr=last;
+
+ printf("welcome! \n please state your limit. \n we would find all prime numbers up to that limit! \n"); 
+ scanf("%d",&top);
+
+ while(key<top)
+  { if(key>lim)
+      {base=next_base(baseptr);
+       lim=up_limit(baseptr);}
+
+    if(scan(head,key,base))
+      { last=add(key,key);}
+  
+    key++;
+      }
+
+ print(head);
+ end(head);
+return 0;
+}
+
+
+int next_base(node * baseptr)
+   {baseptr=baseptr->next;
+    return baseptr->dat; }
+
+int up_limit(node * baseptr)
+  {int lim=0; 
+   node * new= baseptr->next;
+   lim=new->data-1;
+   lim=lim*lim;
+   return lim; }
+ 
+
+int scan(node * head,int key, int base)
+  {node * tmp=head;
+   while((tmp->data)<=base)
+      {if(key%(tmp->data)==0)
+          return 0;
+       if(tmp->next==NULL)
+         return 1;
+       tmp=tmp->next;}
+   return 1; }
+ 
+
+node * add(node * last,int key)
+ {node* tmp;
+  tmp=(node*)malloc(sizeof(node));
+  tmp->data=key;  
+  tmp->next=NULL;
+  last->next=tmp;
+  return tmp; }
+
+void print(node * head)
+ { node * tmp;
+   tmp=head;
+ 
+  while( tmp->next!=NULL)
+      { printf("%d \n", tmp->data);
+        if(tmp->next==NULL)
+         break;
+        tmp=tmp->next;}
+      printf("%d \n", tmp->data);
+ return ;}
+
+void end(node * head)
+{
+ node * temp1;
+ node * temp2;
+ temp1=head;
+while(temp1->next!=NULL)
+      { temp2=temp1;
+        temp1=temp1->next;
+        free(temp2); }
+ free(temp1);
+ return ;}
+
+     
+
+ 
